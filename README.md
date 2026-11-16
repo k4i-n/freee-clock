@@ -1,6 +1,10 @@
 # freee clock
 
-A small macOS menu bar app that clocks you in and out on freee HR (freee 人事労務). On working days it punches at a random time inside a window you set, but only while you are actually using the Mac. It is one Swift file with no dependencies.
+A small macOS menu bar app that clocks you in and out on freee HR (freee 人事労務), so you never forget to punch. It is one Swift file with no dependencies.
+
+## Why
+
+I work flex time. I start when I open the Mac, any time after 8, and I punch in whenever I remember, or sometimes not at all. This app punches the way I do: once I am working at the Mac inside my usual window, it punches at some point in that window. Some days I open the Mac before 8, and I do not want a punch at exactly 8:00 every day, so the time is picked at random inside the window. Leaving works the same way.
 
 This is a personal hobby project. It is not made by or affiliated with freee K.K. Your attendance record is your responsibility: check that your company allows automatic clocking before you use it.
 
@@ -32,7 +36,7 @@ The menu shows today's date and day type, and today's punches:
 1. Clone the repository and run the installer. It builds the app, runs the self-test, and registers it as a launchd agent that starts at login and restarts if it stops.
 
    ```
-   git clone <repo-url> ~/freee-clock
+   git clone https://github.com/nhkhai-vn/freee-clock.git ~/freee-clock
    ~/freee-clock/install.sh
    ```
 
