@@ -36,7 +36,7 @@ The menu shows today's date and day type, and today's punches:
 1. Clone the repository and run the installer. It builds the app, runs the self-test, and registers it as a launchd agent that starts at login and restarts if it stops.
 
    ```
-   git clone https://github.com/nhkhai-vn/freee-clock.git ~/freee-clock
+   git clone https://github.com/k4i-n/freee-clock.git ~/freee-clock
    ~/freee-clock/install.sh
    ```
 
