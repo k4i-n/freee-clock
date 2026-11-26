@@ -1,23 +1,16 @@
 # freee clock
 
-A small macOS menu bar app that clocks you in and out on freee HR (freee 人事労務), so you never forget to punch. It is one Swift file with no dependencies.
+A macOS menu bar app that clocks you in and out on freee HR (freee 人事労務) at a random time inside your usual window, when you are at the Mac. One Swift file, no dependencies.
 
-## Why
-
-I work flex time. I start when I open the Mac, any time after 8, and I punch in whenever I remember, or sometimes not at all. This app punches the way I do: once I am working at the Mac inside my usual window, it punches at some point in that window. Some days I open the Mac before 8, and I do not want a punch at exactly 8:00 every day, so the time is picked at random inside the window. Leaving works the same way.
-
-This is a personal hobby project. It is not made by or affiliated with freee K.K. Your attendance record is your responsibility: check that your company allows automatic clocking before you use it.
+A personal hobby project, not made by or affiliated with freee K.K. Check that your company allows automatic clocking.
 
 ## What it does
 
-- On working weekdays it clocks in at a random time between 08:15 and 09:00 and clocks out between 18:00 and 19:00. You can change both windows in Settings.
-- It checks freee first and does nothing on holidays, days off, full-day leave, or when you already punched by hand. On partial leave (half day, hourly, morning or afternoon off) it notifies you to punch by hand.
-- It punches only when the Mac has been used in the last 10 minutes. If you are away at the chosen time, it waits until you come back, up to the end of the window.
-- 30 seconds before a punch, the icon flashes and you get a notification. The menu then offers Clock now, Delay 10 min and Skip.
-- Late mode: if the Mac was off, asleep or unused for the whole clock-in window, it clocks in the next time you use the Mac, after a 30 second countdown. This is on by default for clock in (until the clock-out window starts) and off by default for clock out (until midnight).
-- If a punch is missed and late mode is off, you get a notification so you can punch by hand.
-
-The menu shows today's date and day type, and today's punches:
+- Working weekdays: clocks in between 08:15 and 09:00 and out between 18:00 and 19:00 (changeable in Settings).
+- Skips holidays, days off, full-day leave and days you punched by hand. On partial leave it asks you to punch by hand.
+- Punches only if the Mac was used in the last 10 minutes; otherwise it waits for you, up to the end of the window.
+- 30 seconds before a punch, the icon flashes and the menu offers Clock now, Delay 10 min and Skip.
+- Late mode: if you were away for the whole clock-in window, it clocks in when you come back. On for clock in, off for clock out.
 
 ```
 11-12: work day
@@ -25,63 +18,38 @@ The menu shows today's date and day type, and today's punches:
 ● Clocked out    18:20
 ```
 
-## Requirements
-
-- macOS 12 or later
-- Xcode Command Line Tools (`xcode-select --install`), for `swiftc`
-- A freee HR account where you are registered as an employee
-
 ## Setup
 
-1. Clone the repository and run the installer. It builds the app, runs the self-test, and registers it as a launchd agent that starts at login and restarts if it stops.
+Needs macOS 12 or later and the Xcode Command Line Tools (`xcode-select --install`).
 
-   ```
-   git clone https://github.com/k4i-n/freee-clock.git ~/freee-clock
-   ~/freee-clock/install.sh
-   ```
+```
+git clone https://github.com/k4i-n/freee-clock.git ~/freee-clock
+~/freee-clock/install.sh
+```
 
-   The app runs from the folder you cloned into, so keep that folder in place. To move it, run `install.sh uninstall`, move the folder, and run `install.sh` again.
+The installer builds the app, runs the self-test, and starts it at login. The app runs from the cloned folder, so keep it in place.
 
-2. On first start the app opens the "Sign in to freee" window. The app signs in through your own freee app, so no shared secret is built into this project.
+On first start the "Sign in to freee" window opens. Sign-in uses your own freee app, so no secret is built into this project:
 
-   - Open the freee developers page from the window and create an app (it is free).
-   - Set the app's callback URL to `http://127.0.0.1:8370/callback` (the window has a Copy button).
-   - Give the app the HR (人事労務) permissions for work records and time clocks.
-   - Paste the app's Client ID and Client Secret into the window and click "Sign in with freee".
-   - Allow access in the browser. freee sends the browser back to the app, and the window closes.
+1. Create an app on the freee developers page (free), linked from the window.
+2. Set its callback URL to `http://127.0.0.1:8370/callback` and give it the HR permissions for work records and time clocks.
+3. Paste its Client ID and Client Secret, click "Sign in with freee", and allow access in the browser.
 
-3. If macOS asks whether `freee` may use the Keychain, choose "Always Allow". The app asks again after each rebuild, because a locally built binary gets a new signature every time.
-
-## Settings
-
-Click the clock icon, then Settings... (or press ⌘,):
-
-- Clock in and clock out windows (start and end)
-- Late mode for clock in and for clock out
-- Account: who is signed in, and Sign out
-
-Sign out removes the sign-in but keeps your app's Client ID and Secret, so signing in again only needs the browser step.
+If macOS asks whether `freee` may use the Keychain, choose "Always Allow". It asks again after each rebuild.
 
 ## Command line
-
-`install.sh` links the `freee` command into `~/.local/bin`.
 
 ```
 freee status          who you are, today's day type, what can be punched now
 freee in | out        punch now
-freee setup           open the sign-in window in the running app
+freee setup           open the sign-in window
 freee demo [in|out]   40 second countdown in the menu bar, no punch
-freee selftest        offline tests with a fake clock, fake freee and fake Keychain
+freee selftest        offline tests
 ```
 
-## Where things are stored
+## Data
 
-- Login Keychain, service `freee-clock`: your app's Client ID and Secret, and the OAuth tokens
-- `~/.config/freee-clock/config.json`: company and employee id
-- `~/.config/freee-clock/settings.json`: your Settings
-- `~/Library/Logs/freee-clock.log`: log
-
-The app talks only to freee (`api.freee.co.jp`, `accounts.secure.freee.co.jp`). The sign-in listener on `127.0.0.1:8370` runs only while the sign-in window is waiting for the browser.
+The Client ID, Secret and tokens are in the login Keychain (service `freee-clock`); settings are in `~/.config/freee-clock/`; the log is `~/Library/Logs/freee-clock.log`. The app talks only to freee.
 
 ## Uninstall
 
@@ -89,7 +57,7 @@ The app talks only to freee (`api.freee.co.jp`, `accounts.secure.freee.co.jp`). 
 ~/freee-clock/install.sh uninstall
 ```
 
-This stops the app and removes the launchd agent and the `freee` command. To also remove your data, delete `~/.config/freee-clock` and the `freee-clock` items in Keychain Access.
+Then delete `~/.config/freee-clock` and the `freee-clock` Keychain items to remove your data.
 
 ## License
 
