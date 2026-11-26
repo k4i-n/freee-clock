@@ -18,6 +18,8 @@ A personal hobby project, not made by or affiliated with freee K.K. Check that y
 ● Clocked out    18:20
 ```
 
+<img src="docs/settings.png" width="400" alt="Settings window with clock in and clock out windows and late mode">
+
 ## Setup
 
 Needs macOS 12 or later and the Xcode Command Line Tools (`xcode-select --install`).
@@ -34,6 +36,8 @@ On first start the "Sign in to freee" window opens. Sign-in uses your own freee 
 1. Create an app on the freee developers page (free), linked from the window.
 2. Set its callback URL to `http://127.0.0.1:8370/callback` and give it the HR permissions for work records and time clocks.
 3. Paste its Client ID and Client Secret, click "Sign in with freee", and allow access in the browser.
+
+<img src="docs/sign-in.png" width="406" alt="Sign in to freee window">
 
 If macOS asks whether `freee` may use the Keychain, choose "Always Allow". It asks again after each rebuild.
 
