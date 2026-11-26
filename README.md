@@ -4,6 +4,8 @@ A macOS menu bar app that clocks you in and out on freee HR (freee 人事労務)
 
 A personal hobby project, not made by or affiliated with freee K.K. Check that your company allows automatic clocking.
 
+<img src="docs/menu.png" width="283" alt="Menu: today is a work day, clocked in at 08:37, clocking out in 27 seconds with Clock now, Delay 10 min and Skip">
+
 ## What it does
 
 - Working weekdays: clocks in between 08:15 and 09:00 and out between 18:00 and 19:00 (changeable in Settings).
@@ -11,12 +13,6 @@ A personal hobby project, not made by or affiliated with freee K.K. Check that y
 - Punches only if the Mac was used in the last 10 minutes; otherwise it waits for you, up to the end of the window.
 - 30 seconds before a punch, the icon flashes and the menu offers Clock now, Delay 10 min and Skip.
 - Late mode: if you were away for the whole clock-in window, it clocks in when you come back. On for clock in, off for clock out.
-
-```
-11-12: work day
-● Clocked in     08:37
-● Clocked out    18:20
-```
 
 <img src="docs/settings.png" width="400" alt="Settings window with clock in and clock out windows and late mode">
 
