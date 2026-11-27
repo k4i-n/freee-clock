@@ -18,14 +18,14 @@ A personal hobby project, not made by or affiliated with freee K.K. Check that y
 
 ## Setup
 
-Needs macOS 12 or later and the Xcode Command Line Tools (`xcode-select --install`).
+Needs macOS 12 or later.
 
 ```
-git clone https://github.com/k4i-n/freee-clock.git ~/freee-clock
-~/freee-clock/install.sh
+brew install k4i-n/tap/freee-clock
+brew services start freee-clock
 ```
 
-The installer builds the app, runs the self-test, and starts it at login. The app runs from the cloned folder, so keep it in place.
+`brew services` starts the app now and at every login. To build it yourself instead (needs the Xcode Command Line Tools), clone the repository and run `install.sh`; the app then runs from the cloned folder.
 
 On first start the "Sign in to freee" window opens. Sign-in uses your own freee app, so no secret is built into this project:
 
@@ -35,7 +35,7 @@ On first start the "Sign in to freee" window opens. Sign-in uses your own freee 
 
 <img src="docs/sign-in.png" width="406" alt="Sign in to freee window">
 
-If macOS asks whether `freee` may use the Keychain, choose "Always Allow". It asks again after each rebuild.
+If macOS asks whether `freee` may use the Keychain, choose "Always Allow". It asks again after each upgrade or rebuild.
 
 ## Command line
 
@@ -49,13 +49,16 @@ freee selftest        offline tests
 
 ## Data
 
-The Client ID, Secret and tokens are in the login Keychain (service `freee-clock`); settings are in `~/.config/freee-clock/`; the log is `~/Library/Logs/freee-clock.log`. The app talks only to freee.
+The Client ID, Secret and tokens are in the login Keychain (service `freee-clock`); settings are in `~/.config/freee-clock/`; the log is `$(brew --prefix)/var/log/freee-clock.log` (`~/Library/Logs/freee-clock.log` with `install.sh`). The app talks only to freee.
 
 ## Uninstall
 
 ```
-~/freee-clock/install.sh uninstall
+brew services stop freee-clock
+brew uninstall freee-clock
 ```
+
+With `install.sh`: `install.sh uninstall`.
 
 Then delete `~/.config/freee-clock` and the `freee-clock` Keychain items to remove your data.
 
